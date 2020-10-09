@@ -3,27 +3,112 @@
 	"name": "PIC18",
 	"patterns": [
 		{
-			"include": "#keywords"
+			"name": "keyword.control.directive.pic18",
+			"match": "(?i)ALIGN|ASMOPT|BANKSEL|CALLSTACK|(?:(?:NO\\W+)?COND)|CONFIG|DB|DW|DS|DABS|DLABS|DDW|ELSE|ELSIF|ENDIF|END|ENDM|EQU|ERROR|(?:(?:NO\\W+)?EXPAND)|EXTRN|FNADDR|FNARG|FNBREAK|FNCALL|FNCONF|FNINDIR|FNSIZE|FNROOT|GLOBAL|IF|INCLUDE|IRP|IRPC|(?:(?:NO\\W+)?LIST)|LOCAL|MACRO|MESSG|ORG|PAGELEN|PAGESEL|PAGEWIDTH|PROCESSOR|PSECT|RADIX|REPT|SET|SIGNAT|SUBTITLE|TITLE(?-i)\\b"
 		},
 		{
-			"include": "#strings"
+			"include": "#mnemonics"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#numerics"
 		}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.pic18",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
+		"mnemonics":{
+			"patterns":[
+				{
+					"match": "\\b(?i)(?:ADDWF|ADDWFC|ANDWF|COMF|DECF|DECFSZ|DCFSNZ|INCF|INCFSZ|INFSNZ|IORWF|MOVF|MOVWF|RLCF|RLNCF|RRCF|RRNCF|SETF|SUBFWB|SUBWF|SUBWFB|SWAPF|XORWF)(?-i)\\b",
+					"name": "support.function.mnemonic.bytewf.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:CLRF|CPFSEQ|CPFSGT|CPFSLT|MULWF|NEGF|TSTFSZ)(?-i)\\b",
+					"name": "support.function.mnemonic.bytef.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:MOVFF)(?-i)\\b",
+					"name": "support.function.mnemonic.byteff.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:BCF|BSF|BTFSC|BTFSS|BTG)(?-i)\\b",
+					"name": "support.function.mnemonic.bitf.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:BC|BN|BNC|BNN|BNOV|BNZ|BOV|BZ)(?-i)\\b",
+					"name": "support.function.mnemonic.ls8.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:BRA|RCALL)(?-i)\\b",
+					"name": "support.function.mnemonic.ls12.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:RETLW|ADDLW|ANDLW|IORLW|MOVLB|MOVLW|MULLW|SUBLW|XORLW)(?-i)\\b",
+					"name": "support.function.mnemonic.lu8.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:GOTO)(?-i)\\b",
+					"name": "support.function.mnemonic.lu20.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:CALL)(?-i)\\b",
+					"name": "support.function.mnemonic.call.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:RETFIE|RETURN)(?-i)\\b",
+					"name": "support.function.mnemonic.return.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:CLRWDT|DAW|NOP|POP|PUSH|RESET|SLEEP)(?-i)\\b",
+					"name": "support.function.mnemonic.blank.pic18"
+				},
+				{
+					"match": "\\b(?i)(?:LFSR)(?-i)\\b",
+					"name": "support.function.mnemonic.blank.pic18"
+				}
+			]
 		},
-		"strings": {
-			"name": "string.quoted.double.pic18",
-			"begin": "\"",
-			"end": "\"",
+		"comments":{
 			"patterns": [
 				{
-					"name": "constant.character.escape.pic18",
-					"match": "\\\\."
+					"match": "([;@]|//|#).*$",
+					"name": "comment.line.pic18"
+				},
+				{
+					"begin": "\\/\\*",
+					"beginCaptures": {
+						"0": {
+							"name": "comment.begin.pic18"
+						}
+					},
+					"endCaptures": {
+						"0": {
+							"name": "comment.end.pic18"
+						}
+					},
+					"end": "\\*\\/",
+					"name": "comment.block.pic18"
+				  }
+			]
+		},
+		"numerics": {
+			"patterns": [
+				{
+					"match": "\\b[01]+B\\b",
+					"name": "constant.numeric.bin.pic18"
+				},
+				{
+					"match": "\\b[0-71]+[OQoq]\\b",
+					"name": "constant.numeric.oct.pic18"
+				},
+				{
+					"match": "\\b\\d+[Dd]?\\b",
+					"name": "constant.numeric.dec.pic18"
+				},
+				{
+					"match": "\\b(?:(?:\\d[\\da-fA-F]*[Hh]\\b)|0x[\\da-fA-F]+)\\b",
+					"name": "constant.numeric.hex.pic18"
 				}
 			]
 		}
