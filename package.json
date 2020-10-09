@@ -1,0 +1,25 @@
+{
+    "name": "pic18-assembly",
+    "displayName": "PIC18 Assembly",
+    "description": "Syntax highlighting for PIC18 assembly",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.50.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "pic18",
+            "aliases": ["PIC18", "pic18"],
+            "extensions": [".s",".S",".sx"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "pic18",
+            "scopeName": "source.pic18",
+            "path": "./syntaxes/pic18.tmLanguage.json"
+        }]
+    }
+}
